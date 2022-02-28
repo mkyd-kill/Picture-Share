@@ -1,0 +1,60 @@
+{% extends 'base_layout.html' %} {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+<title>Mind Games - User Registeration</title>
+{% endblock %} {% block content %}
+<div class="container">
+    <form action="" method="POST" autocomplete="off">
+        <h1 class="title">Registeration</h1>
+        <div class="input-container">
+            <input type="text" name="username" class="input" required>
+            <label for="">Username</label>
+            <span>Username</span>
+        </div>
+        <div class="input-container">
+            <input type="email" name="email" class="input" required>
+            <label for="">Email</label>
+            <span>Email</span>
+        </div>
+        <div class="input-container">
+            <input type="password" name="password" class="input" required>
+            <label for="">Password</label>
+            <span>Password</span>
+        </div>
+        <div class="input-container">
+            <input type="password" name="re-confirm" class="input" required>
+            <label for="">Confirm Password</label>
+            <span>Confirm Password</span>
+        </div>
+
+        <div class="terms">
+            <input type="checkbox" name="conditions" required />
+            <label for="terms" class="agree">Agree to
+                <a href="" class="tandc">Terms <i>&</i> Conditions</a>
+            </label>
+        </div>
+
+        <input type="submit" class="logbtn" value="Register">
+    </form>
+</div>
+<script>
+    //  contact form script
+    const inputs = document.querySelectorAll(".input");
+
+    function focusFunc() {
+        let parent = this.parentNode;
+        parent.classList.add("focus");
+    }
+
+    function blurFunc() {
+        let parent = this.parentNode;
+        if (this.value == "") {
+            parent.classList.remove("focus");
+        }
+    }
+
+    inputs.forEach((input) => {
+        input.addEventListener("focus", focusFunc);
+        input.addEventListener("blur", blurFunc)
+    });
+</script>
+{% endblock %}

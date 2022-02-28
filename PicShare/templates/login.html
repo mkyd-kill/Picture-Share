@@ -1,0 +1,49 @@
+{% extends 'base_layout.html' %} {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+<title>Mind Games - User Login</title>
+{% endblock %} {% block content %}
+<div class="container">
+    <form action="" method="POST" autocomplete="off">
+        <h1 class="title">User Login</h1>
+
+        <div class="input-container">
+            <input type="text" name="name" class="input" required>
+            <label for="">Username</label>
+            <span>Username</span>
+        </div>
+
+        <div class="input-container">
+            <input type="password" name="password" class="input" required>
+            <label for="">Password</label>
+            <span>Password</span>
+        </div>
+
+        <input type="submit" class="logbtn" value="Login">
+
+        <div class="bottom-text">
+            Don't have an account? <a class="sign-up" href="{{ url_for('auth.usr_registeration') }}">Sign up</a>
+        </div>
+    </form>
+</div>
+<script>
+    //  contact form script
+    const inputs = document.querySelectorAll(".input");
+
+    function focusFunc() {
+        let parent = this.parentNode;
+        parent.classList.add("focus");
+    }
+
+    function blurFunc() {
+        let parent = this.parentNode;
+        if (this.value == "") {
+            parent.classList.remove("focus");
+        }
+    }
+
+    inputs.forEach((input) => {
+        input.addEventListener("focus", focusFunc);
+        input.addEventListener("blur", blurFunc)
+    });
+</script>
+{% endblock %}

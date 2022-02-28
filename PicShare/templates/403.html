@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block head %}
+<title>403 Error!</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='error_logs.css') }}"> {% endblock %} {% block body %}
+
+<div class="container">
+    <br/>
+    <center>
+        <h1>403 | Forbidden URL Access Error</h1>
+        <p>Something Went Wrong! Try Again...</p>
+
+    </center>
+</div>
+
+{% endblock %}

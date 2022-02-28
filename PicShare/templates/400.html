@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block head %}
+<title>400 Error!</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='error_logs.css') }}"> {% endblock %} {% block body %}
+
+<div class="container">
+    <br/>
+    <center>
+        <h1>400 | Bad Request Error</h1>
+        <p>Something Went Wrong! Try Again...</p>
+
+    </center>
+</div>
+
+{% endblock %}
