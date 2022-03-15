@@ -2,8 +2,12 @@ from flask import Flask, render_template
 from flask_sslify import SSLify
 from flask_socketio import SocketIO
 from os import environ, path
+from .generateSecretKey import secretKey
+from flask_sqlalchemy import SQLAlchemy
 
 socketio = SocketIO()
+db = SQLAlchemy()
+DB_NAME = 'MAIN_DATABASE.db'
 
 def create_app():
     app = Flask(
@@ -13,6 +17,15 @@ def create_app():
     )
     sslify = SSLify(app)
     socketio.init_app(app)
+    db.init_app(app)
+
+    # configurations
+    app.config['SECRET_KEY'] = secretKey()
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SESSION_TYPE'] = 'filesystem'
+    # uploading large picture files
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
     # blueprint registeration
     from .admin import admin
@@ -86,13 +99,11 @@ def create_app():
         return response
 
     # creating the database
-    create_database()
+    create_database(app)
 
     return app
 
-DB_NAME = 'DATABASE.db'
-def create_database():
-    from .modules import Base, engine
-    if not path.exists('PicShare/database/' + DB_NAME):
-        Base.metadata.create_all(engine)
-        print('DataBase Created Successfully!')
+def create_database(app):
+    if not path.exists('PicShare/' + DB_NAME):
+        db.create_all(app=app)
+        print('DataBase Created Successfully!\n')
